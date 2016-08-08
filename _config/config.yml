@@ -1,0 +1,11 @@
+---
+Name: systemmessageconfig
+---
+## Extensions
+Controller:
+  extensions:
+    - SystemMessageControllerExtension
+Member:
+  extensions:
+    - SystemMessageMemberExtension
+

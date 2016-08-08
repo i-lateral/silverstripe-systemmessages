@@ -1,0 +1,19 @@
+# Mock date is set to 2013-10-01 20:00:00
+Member:
+  User1:
+    FirstName: User
+    Surname: One
+  User2:
+    FirstName: User
+    Surname: Two
+
+SystemMessage:
+  FirstMessage:
+    Content: 'First Message'
+    StartDate: '2013-10-01 15:00:00'
+    ExpiryDate: '2013-11-01 15:00:00'
+  SecondMessage:
+    Content: 'Second Message'
+    ClosedBy: =>Member.User1
+    StartDate: '2013-08-01 15:00:00'
+    ExpiryDate: '2013-09-01 15:00:00'

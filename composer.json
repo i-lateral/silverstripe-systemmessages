@@ -1,0 +1,28 @@
+{
+  "name": "i-lateral/silverstripe-systemmessages",
+	"description": "Add popup notification messages to a Silverstripe site",
+	"type": "silverstripe-module",
+	"homepage": "http://github.com/i-lateral/silverstripe-systemmessages",
+	"keywords": ["silverstripe", "messages", "notifications"],
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Morven Lewis-Everley",
+			"email": "morven@ilateral.co.uk"
+		},
+		{
+			"name": "Mark Anderson",
+			"email": "mark@ilateral.co.uk"
+		}
+	],
+	"support": {
+		"issues": "http://github.com/i-lateral/silverstripe-systemmessages/issues"
+	},
+	"require": {
+		"silverstripe/framework": ">=3.1",
+        "sheadawson/silverstripe-linkable": "1.1.*"
+	},
+	"extra": {
+		"installer-name": "carousel"
+	}
+}
