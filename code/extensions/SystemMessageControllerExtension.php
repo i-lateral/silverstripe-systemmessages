@@ -23,6 +23,7 @@ class SystemMessageControllerExtension extends Extension
         $id = $this->owner->request->param("ID");
         $message = SystemMessage::get()->byID($id);
         $member = Member::currentUser();
+        $action = $this->owner->request->getVars();
 
         // If not a message then generate an error 
         if (!$message) {
@@ -35,6 +36,10 @@ class SystemMessageControllerExtension extends Extension
             $message->close();
         }
 
-        return $this->owner->redirectBack();
+        if ($action->exists) {
+            return $this->owner->redirect($action->BackURL);
+        } else {
+            return $this->owner->redirectBack();
+        }
     }
 }

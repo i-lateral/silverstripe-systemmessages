@@ -11,7 +11,7 @@
 
                 <div class="system-message-buttons">
                     <% if $Link.LinkURL %>
-                        <a href="$Link.LinkURL" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
+                        <a href="{$CloseLink}?BackURL={$Link.LinkURL}" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
                     <% end_if %>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="system-message-buttons">
                     <a href="$CloseLink" class="btn system-message-close-button">$ButtonText</a>
                     <% if $Link.LinkURL %>
-                        <a href="$Link.LinkURL" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
+                        <a href="{$CloseLink}?BackURL={$Link.LinkURL}" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
                     <% end_if %>
                 </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="modal-footer system-message-buttons">
                         <a href="$CloseLink" class="btn btn-default system-message-close-button">$ButtonText</a>
                         <% if $Link.LinkURL %>
-                            <a href="$Link.LinkURL" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
+                            <a href="{$CloseLink}?BackURL={$Link.LinkURL}" $Link.TargetAttr class="btn system-message-link-button">$Link.Title</a>
                         <% end_if %>
                     </div>
                     </div>
