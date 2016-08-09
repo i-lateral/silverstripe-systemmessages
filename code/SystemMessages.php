@@ -28,7 +28,9 @@ class SystemMessages extends ViewableData
     public function RenderedMessage() {
         return $this->renderWith(
             "SystemMessage",
-            $this->Message()
+            array(
+                "Message" => $this->Message()
+            )
         );
     }
 
