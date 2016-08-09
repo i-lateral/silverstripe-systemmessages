@@ -13,7 +13,9 @@ class SystemMessage extends DataObject
         "Content"       => "HTMLText",
         "ButtonText"    => "Varchar",
         "StartDate"     => "SS_Datetime",
-        "ExpiryDate"    => "SS_Datetime"
+        "ExpiryDate"    => "SS_Datetime",
+        "Type" => "Enum('Banner,Modal','Banner')",
+        "MessageType" => "Enum('success,info,warning,danger','success')"
     );
 
     private static $has_one = array(
@@ -27,7 +29,8 @@ class SystemMessage extends DataObject
     private static $summary_fields = array(
         "Content.Summary" => "Content",
         "StartDate"       => "Starts",
-        "ExpiryDate"      => "Expires"
+        "ExpiryDate"      => "Expires",
+        "MessageType" => "Message Type"
     );
 
     /**
@@ -37,7 +40,10 @@ class SystemMessage extends DataObject
      */
     public function CloseLink()
     {
-        return Controller::curr()->Link("closesystemmessage");
+        return Controller::join_links(
+            Controller::curr()->Link("closesystemmessage"),
+            $this->ID
+        );
     }
 
     /**
@@ -98,5 +104,23 @@ class SystemMessage extends DataObject
         } else {
             Cookie::set("systemmessage.closed.{$this->ID}", true);
         }
+    }
+
+    public function UseDefaultJQuery()
+    {
+        if (SystemMessages::config()->UseDefaultJQuery) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+		$fields->addFieldToTab('Root.Main', LinkField::create('LinkID', 'Link to page or file'));
+
+        return $fields;
     }
 }
