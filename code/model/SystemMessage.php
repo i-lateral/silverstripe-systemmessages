@@ -106,14 +106,9 @@ class SystemMessage extends DataObject
         }
     }
 
-    public function UseDefaultJQuery()
+    public function UseDefaultJS()
     {
-        if (SystemMessages::config()->UseDefaultJQuery) {
-            return true;
-        } else {
-            return false;
-        }
-        
+        return SystemMessages::config()->use_default_js;
     }
 
     public function getCMSFields()

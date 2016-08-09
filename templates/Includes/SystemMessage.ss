@@ -16,7 +16,7 @@
                 </div>
             </div>
         <% else %>
-            <% if UseDefaultJQuery %>
+            <% if UseDefaultJS %>
                 <% require javascript("systemmessages/js/jquery.lightbox_me.js") %>
                 <% require javascript("systemmessages/js/sm_lightbox.js") %>
                 <div class="system-message system-message-lightbox alert alert-$MessageType">

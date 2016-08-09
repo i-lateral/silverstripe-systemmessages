@@ -10,12 +10,12 @@
 class SystemMessages extends ViewableData
 {
     /**
-     * Set whether or not to use Lightbox_me
-     * @var boolean
+     * Set whether or not to use edfault JS libs (such as Lightbox_me)
      *
+     * @var boolean
      * @config
      */
-    private static $UseDefaultJQuery = true;
+    private static $use_default_js = true;
 
     /**
      * Get the most recent, open system message for the current
