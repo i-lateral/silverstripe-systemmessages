@@ -24,6 +24,12 @@ class SystemMessage extends DataObject
         "ClosedBy" => "Member"
     );
 
+    private static $summary_fields = array(
+        "Content.Summary" => "Content",
+        "StartDate"       => "Starts",
+        "ExpiryDate"      => "Expires"
+    );
+
     /**
      * Link to close this message
      *
