@@ -36,11 +36,11 @@ You can manage messages in the admin area using the
 "Messages" tab.
 
 
-by default, system messages uses lightbox_me for modal messages. 
+By default, system messages uses lightbox_me for modal messages. 
 This can be disabled in the config for using your own jquery, disabling this will
 give the message the default bootstrap modal classes.
 
 config.yml 
 
     SystemMessages:
-      UseDefaultJQuery: false
+      use_default_js: false
