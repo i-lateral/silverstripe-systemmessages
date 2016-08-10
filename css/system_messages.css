@@ -1,7 +1,15 @@
 .system-message-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9001;
+    padding-bottom: 2em;
+}
+.system-message-banner .close {
+    text-decoration: none;
+    font-size: 2em;
+    float: right;
+    padding-left: 15px;
+}
+
+.system-message-lightbox {
+    max-width: 50%;
+    background: #fff;
+    padding: 25px;
 }

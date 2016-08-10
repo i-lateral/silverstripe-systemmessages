@@ -33,6 +33,10 @@ class SystemMessage extends DataObject
         "MessageType" => "Message Type"
     );
 
+    private static $defaults = array(
+        "ButtonText" => "Close"
+    );
+
     /**
      * Link to close this message
      *
