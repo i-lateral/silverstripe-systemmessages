@@ -35,12 +35,34 @@ to any templates you require messages to appear on.
 You can manage messages in the admin area using the
 "Messages" tab.
 
+### Built in JS libs
 
 By default, system messages uses lightbox_me for modal messages. 
-This can be disabled in the config for using your own jquery, disabling this will
-give the message the default bootstrap modal classes.
+This can be disabled in the config for using your own jquery, disabling
+this will give the message the default bootstrap modal classes.
 
 config.yml 
 
     SystemMessages:
       use_default_js: false
+
+_config.php
+
+    SystemMessages::config()->use_default_js = false;
+    
+### Bootstrap support
+
+All HTML uses bootstrap class names as well as custom system message ones
+but the modal box will not auto open on load.
+
+To enable modal auto opening on load, change the **use_bootstrap** config
+variable:
+
+config.yml 
+
+    SystemMessages:
+      use_bootstrap: true
+
+_config.php
+
+    SystemMessages::config()->use_bootstrap = true;

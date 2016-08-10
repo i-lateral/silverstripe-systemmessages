@@ -18,6 +18,14 @@ class SystemMessages extends ViewableData
     private static $use_default_js = true;
 
     /**
+     * Set whether to use Bootstrap specific libs (currently only modal JS)
+     *
+     * @var boolean
+     * @config
+     */
+    private static $use_bootstrap = false;
+
+    /**
      * Get the most recent, open system message for the current
      * user.
      *

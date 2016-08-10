@@ -18,12 +18,12 @@
                 </div>
             </div>
         <% else %>
-            <% if UseDefaultJS %>
+            <% if $UseDefaultJS %>
                 <% require javascript("framework/thirdparty/jquery/jquery.js") %>
                 <% require javascript("systemmessages/js/jquery.lightbox_me.js") %>
                 <% require javascript("systemmessages/js/sm_lightbox.js") %>
                 <% require css("systemmessages/css/system_messages.css") %>
-            <% else %>
+            <% else_if $UseBootstrap %>
                 <% require javascript("systemmessages/js/sm_bootstrap.js") %>
             <% end_if %>
 

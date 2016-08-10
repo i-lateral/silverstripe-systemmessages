@@ -110,9 +110,24 @@ class SystemMessage extends DataObject
         }
     }
 
+    /**
+     * Pass the global JS config (for use in our templates).
+     *
+     * @return Boolean
+     */
     public function UseDefaultJS()
     {
         return SystemMessages::config()->use_default_js;
+    }
+
+    /**
+     * Pass the global Bootstrap config (for use in our templates).
+     *
+     * @return Boolean
+     */
+    public function UseBootstrap()
+    {
+        return SystemMessages::config()->use_bootstrap;
     }
 
     public function getCMSFields()
