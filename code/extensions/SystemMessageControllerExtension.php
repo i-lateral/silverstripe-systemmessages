@@ -36,8 +36,8 @@ class SystemMessageControllerExtension extends Extension
             $message->close();
         }
 
-        if ($action->exists) {
-            return $this->owner->redirect($action->BackURL);
+        if ($action) {
+            return $this->owner->redirect(Director::get_current_page()->Link());
         } else {
             return $this->owner->redirectBack();
         }
