@@ -15,6 +15,7 @@ This module was created by [i-lateral](http://www.i-lateral.com).
 ## Installation
 
 Preferable you should installl this via composer using:
+
     # composer require "i-lateral/silverstripe-systemmessages:0.*"
 
 Alternativley install this module by downloading and adding to:
