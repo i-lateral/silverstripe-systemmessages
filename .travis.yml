@@ -20,7 +20,7 @@ before_install:
 env:
   global:
     - DB=MYSQL CORE_RELEASE=3.1
-    - MODULE_PATH=auth-username
+    - MODULE_PATH=systemmessages
     # Set to 1 in the matrix to enable code coverage
     - COVERAGE=0
 
