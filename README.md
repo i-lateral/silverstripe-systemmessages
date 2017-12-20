@@ -1,6 +1,11 @@
 Silverstripe System Messages Module
 ===================================
 
+![Travis Status](https://travis-ci.org/i-lateral/silverstripe-systemmessages.svg?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/v/stable)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
+[![Total Downloads](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/downloads)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
+[![License](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/license)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
+
 Module for the Silverstripe CMS that adds content manageable messages to a site
 (that can be closed by via a user) via a template variable.
 
