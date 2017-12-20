@@ -10,7 +10,7 @@
 class SystemMessages extends ViewableData
 {
     /**
-     * Set whether or not to use edfault JS libs (such as Lightbox_me)
+     * Set whether or not to use default JS libs (such as Lightbox_me)
      *
      * @var boolean
      * @config

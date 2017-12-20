@@ -76,7 +76,12 @@ class SystemMessage extends DataObject
         if ($member) {
             $match = $this->isClosedByMember($member);
         } else {
-            $match = Cookie::get("systemmessage.closed.{$this->ID}");
+            $cookie = Cookie::get("systemmessage.closed.{$this->ID}");
+            $session = Session::get("systemmessage.closed.{$this->ID}");
+
+            if ($cookie || $session) {
+                $match = true;
+            }
         }
 
         return ($match) ? true : false;
@@ -107,6 +112,7 @@ class SystemMessage extends DataObject
             $member->ClosedMessages()->add($this);
         } else {
             Cookie::set("systemmessage.closed.{$this->ID}", true);
+            Session::set("systemmessage.closed.{$this->ID}", true);
         }
     }
 
