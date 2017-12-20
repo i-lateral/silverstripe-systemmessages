@@ -13,8 +13,8 @@ class SystemMessageTest extends SapphireTest
     {
         $member = $this->objFromFixture('Member', 'User1');
         $message = $this->objFromFixture('SystemMessage', 'SecondMessage');
-        $this->assertNotFalse($message->isClosedByMember($member));
-        $this->assertNotFalse($message->isClosed($member));
+        $this->assertTrue($message->isClosedByMember($member));
+        $this->assertTrue($message->isClosed($member));
         $this->assertFalse($message->isOpen($member));
     }
 
@@ -28,7 +28,21 @@ class SystemMessageTest extends SapphireTest
         $message = $this->objFromFixture('SystemMessage', 'FirstMessage');
         Cookie::set("systemmessage.closed.{$message->ID}", true);
 
-        $this->assertNotFalse($message->isClosed());
+        $this->assertTrue($message->isClosed());
+        $this->assertFalse($message->isOpen());
+    }
+
+    /**
+     * Test to see if message is closed via cookie is flagged as "closed" or
+     * "open"
+     */
+    public function testClosedBySession()
+    {
+        // Get message and set Cookie
+        $message = $this->objFromFixture('SystemMessage', 'FirstMessage');
+        Session::set("systemmessage.closed.{$message->ID}", true);
+
+        $this->assertTrue($message->isClosed());
         $this->assertFalse($message->isOpen());
     }
 
