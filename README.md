@@ -1,7 +1,8 @@
 Silverstripe System Messages Module
 ===================================
 
-![Travis Status](https://travis-ci.org/i-lateral/silverstripe-systemmessages.svg?branch=master)
+
+[![Build Status](https://api.travis-ci.org/i-lateral/silverstripe-systemmessages.svg?branch=master)](https://travis-ci.org/i-lateral/silverstripe-systemmessages)
 [![Latest Stable Version](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/v/stable)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
 [![Total Downloads](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/downloads)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
 [![License](https://poser.pugx.org/i-lateral/silverstripe-systemmessages/license)](https://packagist.org/packages/i-lateral/silverstripe-systemmessages)
