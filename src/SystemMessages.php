@@ -18,14 +18,6 @@ use SilverStripe\ORM\FieldType\DBDatetime;
 class SystemMessages extends ViewableData
 {
     /**
-     * Set whether or not to use default JS libs (such as Lightbox_me)
-     *
-     * @var boolean
-     * @config
-     */
-    private static $use_default_js = true;
-
-    /**
      * Set whether to use Bootstrap specific libs (currently only modal JS)
      *
      * @var boolean

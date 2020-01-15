@@ -7,12 +7,35 @@ use SilverStripe\Security\Member;
 use SilverStripe\Control\Director;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
 use ilateral\SilverStripe\SystemMessages\SystemMessages;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\View\Requirements;
 
 class SystemMessageControllerExtension extends Extension
 {
+    private static $load_jquery = false;
+    private static $load_jquery_defer = false;
+
     private static $allowed_actions = array(
         "closesystemmessage"
     );
+
+    public function onAfterInit()
+    {
+        if (Config::inst()->get(static::class, 'load_jquery')) {
+            Requirements::javascript('silverstripe/admin:thirdparty/jquery/jquery.js');
+        }
+        if (Config::inst()->get(static::class, 'load_jquery_defer')) {
+            Requirements::javascript('silverstripe/admin:thirdparty/jquery/jquery.js', ['defer' => true]);
+        }
+
+        Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/css/system_messages.css");
+
+        $vars = [
+            "UseBootstrap" => Config::inst()->get(SystemMessages::class, 'use_bootstrap')
+        ];
+
+        Requirements::javascriptTemplate('vendor/i-lateral/silverstripe-systemmessages/client/dist/js/SMModal.js', $vars);
+    }
 
     public function SystemMessages()
     {
