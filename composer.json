@@ -1,7 +1,7 @@
 {
   "name": "i-lateral/silverstripe-systemmessages",
 	"description": "Add popup notification messages to a Silverstripe site",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"homepage": "http://github.com/i-lateral/silverstripe-systemmessages",
 	"keywords": ["silverstripe", "messages", "notifications"],
 	"license": "BSD-3-Clause",
@@ -19,10 +19,7 @@
 		"issues": "http://github.com/i-lateral/silverstripe-systemmessages/issues"
 	},
 	"require": {
-		"silverstripe/framework": ">=3.1",
-        "sheadawson/silverstripe-linkable": "1.*"
-	},
-	"extra": {
-		"installer-name": "systemmessages"
+		"silverstripe/framework": "^4.1",
+        "gorriecoe/silverstripe-linkfield": "^1.0"
 	}
 }
