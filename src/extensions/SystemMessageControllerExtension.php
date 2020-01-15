@@ -1,5 +1,13 @@
 <?php
 
+namespace ilateral\SilverStripe\SystemMessages;
+
+use SilverStripe\Core\Extension;
+use SilverStripe\Security\Member;
+use SilverStripe\Control\Director;
+use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use ilateral\SilverStripe\SystemMessages\SystemMessages;
+
 class SystemMessageControllerExtension extends Extension
 {
     private static $allowed_actions = array(

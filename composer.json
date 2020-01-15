@@ -21,5 +21,16 @@
 	"require": {
 		"silverstripe/framework": "^4.1",
         "gorriecoe/silverstripe-linkfield": "^1.0"
-	}
+	},
+    "extra": {
+        "expose": [
+            "client/dist",
+            "node_modules"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "ilateral\\SilverStripe\\SystemMessages\\": "src/"
+        }
+    }
 }

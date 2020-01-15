@@ -1,0 +1,6 @@
+mappings:
+  SystemMessage: ilateral\SilverStripe\SystemMessages\SystemMessage
+  SystemMessages: ilateral\SilverStripe\SystemMessages\SystemMessages
+  SystemMessageAdmin: ilateral\SilverStripe\SystemMessages\SystemMessageAdmin
+  SystemMessageControllerExtension: ilateral\SilverStripe\SystemMessages\SystemMessageControllerExtension
+  SystemMessageMemberExtension: ilateral\SilverStripe\SystemMessages\SystemMessageMemberExtension

@@ -1,11 +1,9 @@
 ---
 Name: systemmessageconfig
 ---
-## Extensions
-Controller:
+SilverStripe\Control\Controller:
   extensions:
-    - SystemMessageControllerExtension
-Member:
+    - ilateral\SilverStripe\SystemMessages\SystemMessageControllerExtension
+SilverStripe\Security\Member:
   extensions:
-    - SystemMessageMemberExtension
-
+    - ilateral\SilverStripe\SystemMessages\SystemMessageMemberExtension

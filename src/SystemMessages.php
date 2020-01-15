@@ -1,5 +1,13 @@
 <?php
 
+namespace ilateral\SilverStripe\SystemMessages;
+
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Security\Member;
+use SilverStripe\View\ViewableData;
+use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use SilverStripe\ORM\FieldType\DBDatetime;
+
 /**
  * Simple object to hold generic settings and functions
  * for SystemMessages object.
@@ -42,7 +50,7 @@ class SystemMessages extends ViewableData
      */
     public function RenderedMessage() {
         return $this->renderWith(
-            "SystemMessage",
+            SystemMessage::class,
             array(
                 "Message" => $this->Message()
             )
@@ -50,7 +58,7 @@ class SystemMessages extends ViewableData
     }
 
     public function OpenMessages() {
-        $now = SS_Datetime::now()->Value;
+        $now = DBDatetime::now()->Value;
         $return = ArrayList::create();
         $member = Member::currentUser();
         $filter = array(

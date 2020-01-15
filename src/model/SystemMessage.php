@@ -1,5 +1,18 @@
 <?php
 
+namespace ilateral\SilverStripe\SystemMessages;
+
+use gorriecoe\Link\Models\Link;
+use SilverStripe\Control\Cookie;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Control\Session;
+use SilverStripe\Security\Member;
+use gorriecoe\LinkField\LinkField;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Injector\Injector;
+use ilateral\SilverStripe\SystemMessages\SystemMessages;
+
 /**
  * A system message that can be loaded onto the front end of a site and dismissed
  * via a button click.
@@ -9,21 +22,24 @@
  */
 class SystemMessage extends DataObject
 {
+    private static $table_name = 'SystemMessage';
+
     private static $db = array(
         "Content"       => "HTMLText",
         "ButtonText"    => "Varchar",
-        "StartDate"     => "SS_Datetime",
-        "ExpiryDate"    => "SS_Datetime",
+        "StartDate"     => "Datetime",
+        "ExpiryDate"    => "Datetime",
+        "Delay" => 'Int',
         "Type" => "Enum('Banner,Modal','Banner')",
         "MessageType" => "Enum('success,info,warning,danger','success')"
     );
 
     private static $has_one = array(
-        'Link'		=> 'Link'
+        'Link'		=> Link::class
     );
 
     private static $belongs_many_many = array(
-        "ClosedBy" => "Member"
+        "ClosedBy" => Member::class
     );
 
     private static $summary_fields = array(
@@ -72,14 +88,17 @@ class SystemMessage extends DataObject
     public function isClosed(Member $member = null)
     {
         $match = false;
+        
+        $request = Injector::inst()->get(HTTPRequest::class);
+        $session = $request->getSession();
 
         if ($member) {
             $match = $this->isClosedByMember($member);
         } else {
             $cookie = Cookie::get("systemmessage.closed.{$this->ID}");
-            $session = Session::get("systemmessage.closed.{$this->ID}");
+            $e_session = $session->get("systemmessage.closed.{$this->ID}");
 
-            if ($cookie || $session) {
+            if ($cookie || $e_session) {
                 $match = true;
             }
         }
@@ -108,11 +127,14 @@ class SystemMessage extends DataObject
      */
     public function Close(Member $member = null)
     {
+        $request = Injector::inst()->get(HTTPRequest::class);
+        $session = $request->getSession();
+
         if ($member) {
             $member->ClosedMessages()->add($this);
         } else {
             Cookie::set("systemmessage.closed.{$this->ID}", true);
-            Session::set("systemmessage.closed.{$this->ID}", true);
+            $session->set("systemmessage.closed.{$this->ID}", true);
         }
     }
 
@@ -139,7 +161,13 @@ class SystemMessage extends DataObject
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-		$fields->addFieldToTab('Root.Main', LinkField::create('LinkID', 'Link to page or file'));
+
+        $fields->removeByName('LinkID');
+
+		$fields->addFieldToTab(
+            'Root.Main', 
+            LinkField::create('Link', 'Link to page or file', $this)
+        );
 
         return $fields;
     }

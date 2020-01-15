@@ -1,5 +1,10 @@
 <?php
 
+namespace ilateral\SilverStripe\SystemMessages;
+
+use SilverStripe\Admin\ModelAdmin;
+use ilateral\SilverStripe\SystemMessages\SystemMessage;
+
 /**
  * Admin interface 
  *
@@ -13,7 +18,7 @@ class SystemMessageAdmin extends ModelAdmin
     private static $menu_priority = 5;
     
     private static $managed_models = array(
-        "SystemMessage"
+        SystemMessage::class
     );
     
 }

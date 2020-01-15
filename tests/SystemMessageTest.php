@@ -1,5 +1,14 @@
 <?php
 
+namespace ilateral\SilverStripe\SystemMessages;
+
+use SilverStripe\Control\Cookie;
+use SilverStripe\Control\Session;
+use SilverStripe\Dev\SapphireTest;
+use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use SilverStripe\ORM\FieldType\DBDatetime;
+use ilateral\SilverStripe\SystemMessages\SystemMessages;
+
 class SystemMessageTest extends SapphireTest
 {
     
@@ -12,7 +21,7 @@ class SystemMessageTest extends SapphireTest
     public function testClosedByUser()
     {
         $member = $this->objFromFixture('Member', 'User1');
-        $message = $this->objFromFixture('SystemMessage', 'SecondMessage');
+        $message = $this->objFromFixture(SystemMessage::class, 'SecondMessage');
         $this->assertTrue($message->isClosedByMember($member));
         $this->assertTrue($message->isClosed($member));
         $this->assertFalse($message->isOpen($member));
@@ -25,7 +34,7 @@ class SystemMessageTest extends SapphireTest
     public function testClosedByCookie()
     {
         // Get message and set Cookie
-        $message = $this->objFromFixture('SystemMessage', 'FirstMessage');
+        $message = $this->objFromFixture(SystemMessage::class, 'FirstMessage');
         Cookie::set("systemmessage.closed.{$message->ID}", true);
 
         $this->assertTrue($message->isClosed());
@@ -39,7 +48,7 @@ class SystemMessageTest extends SapphireTest
     public function testClosedBySession()
     {
         // Get message and set Cookie
-        $message = $this->objFromFixture('SystemMessage', 'FirstMessage');
+        $message = $this->objFromFixture(SystemMessage::class, 'FirstMessage');
         Session::set("systemmessage.closed.{$message->ID}", true);
 
         $this->assertTrue($message->isClosed());
@@ -52,13 +61,13 @@ class SystemMessageTest extends SapphireTest
      */
     public function testExpired()
     {
-        SS_Datetime::set_mock_now('2013-10-10 20:00:00');
+        DBDatetime::set_mock_now('2013-10-10 20:00:00');
 
         $messages = SystemMessages::create()->OpenMessages();
 
         $this->assertEquals("First Message", $messages->first()->Content);
 
-        SS_Datetime::clear_mock_now();
+        DBDatetime::clear_mock_now();
     }
 
     /**
@@ -67,12 +76,12 @@ class SystemMessageTest extends SapphireTest
      */
     public function testNotStarted()
     {
-        SS_Datetime::set_mock_now('2013-08-10 20:00:00');
+        DBDatetime::set_mock_now('2013-08-10 20:00:00');
 
         $messages = SystemMessages::create()->OpenMessages();
 
         $this->assertEquals("Second Message", $messages->first()->Content);
 
-        SS_Datetime::clear_mock_now();
+        DBDatetime::clear_mock_now();
     }
 }
