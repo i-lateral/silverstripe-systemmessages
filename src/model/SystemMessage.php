@@ -35,11 +35,15 @@ class SystemMessage extends DataObject
     );
 
     private static $has_one = array(
-        'Link'		=> Link::class
+        'Link'      => Link::class
     );
 
     private static $belongs_many_many = array(
         "ClosedBy" => Member::class
+    );
+
+    private static $field_labels = array(
+        'Link' => 'Link to page or file'
     );
 
     private static $summary_fields = array(
@@ -150,15 +154,29 @@ class SystemMessage extends DataObject
 
     public function getCMSFields()
     {
-        $fields = parent::getCMSFields();
+        $self = $this;
 
-        $fields->removeByName('LinkID');
+        $this->beforeUpdateCMSFields(
+            function ($fields) use ($self) {
+                $fields->removeByName('LinkID');
 
-		$fields->addFieldToTab(
-            'Root.Main', 
-            LinkField::create('Link', 'Link to page or file', $this)
+                // Add description to delay field
+                $delay_field = $fields->dataFieldByName('Delay');
+                if (!empty($delay_field)) {
+                    $delay_field->setDescription(
+                        _t(__CLASS__ . ".DelayDescription", 'Delay in seconds to open this message')
+                    );
+                }
+        
+                if ($self->exists()) {
+                    $fields->addFieldToTab(
+                        'Root.Main',
+                        LinkField::create('Link', $self->fieldLabel('Link'), $this)
+                    );
+                }
+            }
         );
 
-        return $fields;
+        return parent::getCMSFields();
     }
 }
