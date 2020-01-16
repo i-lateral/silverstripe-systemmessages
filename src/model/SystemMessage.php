@@ -31,7 +31,7 @@ class SystemMessage extends DataObject
         "ExpiryDate"    => "Datetime",
         "Delay" => 'Int',
         "Type" => "Enum('Banner,Modal','Banner')",
-        "MessageType" => "Enum('success,info,warning,danger','success')"
+        "MessageType" => "Enum('plain,success,info,warning,danger','success')"
     );
 
     private static $has_one = array(
