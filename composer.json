@@ -22,15 +22,24 @@
 		"silverstripe/framework": "^4.1",
         "gorriecoe/silverstripe-linkfield": "^1.0"
 	},
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
     "extra": {
         "expose": [
-            "client/dist",
-            "node_modules"
+            "client/dist"
         ]
     },
     "autoload": {
         "psr-4": {
-            "ilateral\\SilverStripe\\SystemMessages\\": "src/"
+            "ilateral\\SilverStripe\\SystemMessages\\": "src/",
+            "ilateral\\SilverStripe\\SystemMessages\\Tests\\": "tests/"
         }
-    }
+    },
+    "scripts": {
+        "lint": "phpcs -s src/ tests/",
+        "lint-clean": "phpcbf src/ tests/"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

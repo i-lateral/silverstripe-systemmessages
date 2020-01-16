@@ -1,48 +1,39 @@
-language: php
-sudo: true
+sudo: false
 
-php:
-  - 5.4
-  - 5.5
-  - 5.6
+language: php
+
+services:
+  - mysql
+  - postgresql
 
 env:
   global:
-    - DB=MYSQL CORE_RELEASE=3.1
-    - MODULE_PATH=systemmessages
+    - COMPOSER_ROOT_VERSION="4.0.x-dev"
 
 matrix:
   include:
-    - php: 5.4
-      env: DB=SQLITE CORE_RELEASE=3.1
-    - php: 5.5
-      env: DB=PGSQL CORE_RELEASE=3.1
-    - php: 5.5
-      env: DB=SQLITE CORE_RELEASE=3.1
-    - php: 5.6
-      env: DB=SQLITE CORE_RELEASE=3.2
-    - php: 5.6
-      env: DB=SQLITE CORE_RELEASE=3.4
-    - php: 5.6
-      env: DB=PGSQL CORE_RELEASE=3.5
-    - php: 5.6
-      env: DB=PGSQL CORE_RELEASE=3.6
-  allow_failures:
-    - php: 7.0
+    - php: 7.1
+      env: DB=PGSQL INSTALLER_VERSION=4.2.x-dev PHPUNIT_TEST=1 UNIT_TESTS_RUNNING=1
+    - php: 7.1
+      env: DB=MYSQL INSTALLER_VERSION=4.2.x-dev PHPUNIT_COVERAGE_TEST=1 UNIT_TESTS_RUNNING=1
+    - php: 7.2
+      env: DB=MYSQL INSTALLER_VERSION=4.x-dev PHPCS_TEST=1 PHPUNIT_TEST=1 UNIT_TESTS_RUNNING=1
 
 before_script:
-  - composer self-update
+  - export PATH=~/.config/composer/vendor/bin:~/.composer/vendor/bin:$PATH
+
+  # Init PHP
   - phpenv rehash
-  - git clone git://github.com/silverstripe-labs/silverstripe-travis-support.git ~/travis-support
-  - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss --require "ezyang/htmlpurifier:4.*,silverstripe/cms:~3.1"
-  - cd ~/builds/ss
+  - phpenv config-rm xdebug.ini
+  - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+  # Install composer dependencies
+  - composer validate
+  - composer require --no-update silverstripe/installer:$INSTALLER_VERSION
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.x-dev; fi
+  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 script:
-  - "if [ \"$COVERAGE\" = \"0\" ]; then vendor/bin/phpunit $MODULE_PATH/tests/; fi"
-  - "if [ \"$COVERAGE\" = \"1\" ]; then vendor/bin/phpunit --coverage-clover=coverage.clover $MODULE_PATH/tests/; fi"
-
-after_script:
-    - "if [ \"$COVERAGE\" = \"1\" ]; then mv coverage.clover ~/build/$TRAVIS_REPO_SLUG/; fi"
-    - cd ~/build/$TRAVIS_REPO_SLUG
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - "if [ \"$COVERAGE\" = \"1\" ]; then travis_retry codecov && travis_retry php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi"
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi
+  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml; fi
+  - if [[ $PHPCS_TEST ]]; then composer run-script lint; fi
