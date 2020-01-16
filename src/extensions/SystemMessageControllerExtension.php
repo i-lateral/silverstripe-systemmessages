@@ -56,7 +56,7 @@ class SystemMessageControllerExtension extends Extension
         $member = Member::currentUser();
         $action = $this->owner->request->getVars();
 
-        // If not a message then generate an error 
+        // If not a message then generate an error
         if (!$message) {
             return $this->owner->httpError(500);
         }

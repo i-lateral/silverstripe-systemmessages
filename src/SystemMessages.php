@@ -31,16 +31,18 @@ class SystemMessages extends ViewableData
      *
      * @return SystemMessage
      */
-    public function Message() {
+    public function Message()
+    {
         return $this->OpenMessages()->first();
     }
 
     /**
      * Get the most recent message and render into a template
-     * 
+     *
      * @return string HTML of the message
      */
-    public function RenderedMessage() {
+    public function RenderedMessage()
+    {
         return $this->renderWith(
             SystemMessage::class,
             array(
@@ -49,7 +51,8 @@ class SystemMessages extends ViewableData
         );
     }
 
-    public function OpenMessages() {
+    public function OpenMessages()
+    {
         $now = DBDatetime::now()->Value;
         $return = ArrayList::create();
         $member = Member::currentUser();
@@ -72,5 +75,4 @@ class SystemMessages extends ViewableData
 
         return $return;
     }
-
 }

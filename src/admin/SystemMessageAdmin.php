@@ -6,7 +6,7 @@ use SilverStripe\Admin\ModelAdmin;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
 
 /**
- * Admin interface 
+ * Admin interface
  *
  */
 class SystemMessageAdmin extends ModelAdmin
@@ -20,5 +20,4 @@ class SystemMessageAdmin extends ModelAdmin
     private static $managed_models = array(
         SystemMessage::class
     );
-    
 }
