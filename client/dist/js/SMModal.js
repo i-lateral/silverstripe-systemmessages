@@ -21,8 +21,11 @@
         DelayTime = $(this).attr('data-delay');
         $object = $(this);
         if (DelayTime > 0) {
-            var idleTimer = null;
-            $('*').bind('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+            var idleTimer = setTimeout(function () { 
+                SMModal($object);
+            }, DelayTime * 1000);
+
+            $('*').bind('click mouseup mousedown keydown keypress keyup submit change scroll resize dblclick', function () {
                 clearTimeout(idleTimer);
                 idleTimer = setTimeout(function () { 
                     SMModal($object);
