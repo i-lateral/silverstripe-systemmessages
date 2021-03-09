@@ -17,7 +17,7 @@
                 </div>
             </div>
         <% else %>
-            <div class="modal fade system-message<% if not $UseBootstrap %> system-message-lightbox<% else %> system-message-bsmodal<% end_if %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-delay="$Delay">
+            <div class="modal fade system-message system-message-modal<% if not $UseBootstrap %> system-message-lightbox<% else %> system-message-bsmodal<% end_if %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-delay="$Delay">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content system-message-content alert alert-$MessageType">
                         <div class="modal-body">

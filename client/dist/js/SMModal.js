@@ -17,7 +17,7 @@
         }
     };
 
-    $('.system-message').each(function() {
+    $('.system-message-modal').each(function() {
         DelayTime = $(this).attr('data-delay');
         $object = $(this);
         if (DelayTime > 0) {
