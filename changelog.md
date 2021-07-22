@@ -17,4 +17,8 @@ This file logs major changes for the SilverStripe System Mesages module.
 
 ## 2.0.1
 
+* Fix modal issues
+
+## 2.0.2
+
 * Fix JS error raised by new bootstrap code
