@@ -30,11 +30,19 @@ class SystemMessageControllerExtension extends Extension
 
         Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/css/system_messages.css");
 
-        $vars = [
-            "UseBootstrap" => Config::inst()->get(SystemMessages::class, 'use_bootstrap')
-        ];
+        $vars = [];
+        $use_bootstrap = Config::inst()->get(SystemMessages::class, 'use_bootstrap');
 
-        Requirements::javascriptTemplate('i-lateral/silverstripe-systemmessages:client/dist/js/SMModal.js', $vars);
+        if (empty($use_bootstrap) || $use_bootstrap === false) {
+            $vars["UseBootstrap"] = 'false';
+        } else {
+            $vars["UseBootstrap"] = 'true';
+        }
+
+        Requirements::javascriptTemplate(
+            'i-lateral/silverstripe-systemmessages:client/dist/js/SMModal.js',
+            $vars
+        );
     }
 
     public function SystemMessages()

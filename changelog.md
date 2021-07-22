@@ -14,3 +14,7 @@ This file logs major changes for the SilverStripe System Mesages module.
 
 * Upgrade to Silverstripe 4
 * Add ability to add a delay (in seconds) to the modal
+
+## 2.0.1
+
+* Fix JS error raised by new bootstrap code

@@ -1,14 +1,15 @@
 (function($) {
-    var UseBootstrap = $UseBootstrap;
-    function SMModal($object) {
-        if (UseBootstrap) {
-            $object.modal({
+    var use_bootstrap = $UseBootstrap;
+
+    function SMModal(object) {
+        if (use_bootstrap) {
+            object.modal({
                 show: true,
                 backdrop: 'static',
                 keyboard: false
             });
         } else {
-            $object.lightbox_me({
+            object.lightbox_me({
                 centered: true, 
                 destroyOnClose: true,
                 closeClick: false,
@@ -18,19 +19,28 @@
     };
 
     $('.system-message-modal').each(function() {
-        DelayTime = $(this).attr('data-delay');
-        $object = $(this);
-        if (DelayTime > 0) {
-            var idleTimer = setTimeout(function () { 
-                SMModal($object);
-            }, DelayTime * 1000);
+        delay_time = $(this).attr('data-delay');
+        object = $(this);
+        if (delay_time > 0) {
+            var idle_timer = setTimeout(
+                function () { 
+                    SMModal(object);
+                },
+                delay_time * 1000
+            );
 
-            $('*').bind('click mouseup mousedown keydown keypress keyup submit change scroll resize dblclick', function () {
-                clearTimeout(idleTimer);
-                idleTimer = setTimeout(function () { 
-                    SMModal($object);
-                }, DelayTime * 1000);
-            });
+            $('*').bind(
+                'click mouseup mousedown keydown keypress keyup submit change scroll resize dblclick',
+                function () {
+                    clearTimeout(idle_timer);
+                    idle_timer = setTimeout(
+                        function () { 
+                            SMModal(object);
+                        },
+                        delay_tTime * 1000
+                    );
+                }
+            );
         } else {
             SMModal($(this));
         }
