@@ -5,44 +5,22 @@ namespace ilateral\SilverStripe\SystemMessages;
 use SilverStripe\Core\Extension;
 use SilverStripe\Security\Member;
 use SilverStripe\Control\Director;
+use SilverStripe\Security\Security;
+use SilverStripe\View\Requirements;
+use SilverStripe\Control\Controller;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
 use ilateral\SilverStripe\SystemMessages\SystemMessages;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\View\Requirements;
 
 class SystemMessageControllerExtension extends Extension
 {
-    private static $load_jquery = false;
-    private static $load_jquery_defer = false;
-
     private static $allowed_actions = array(
         "closesystemmessage"
     );
 
     public function onAfterInit()
     {
-        if (Config::inst()->get(static::class, 'load_jquery')) {
-            Requirements::javascript('silverstripe/admin:thirdparty/jquery/jquery.js');
-        }
-        if (Config::inst()->get(static::class, 'load_jquery_defer')) {
-            Requirements::javascript('silverstripe/admin:thirdparty/jquery/jquery.js', ['defer' => true]);
-        }
-
-        Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/css/system_messages.css");
-
-        $vars = [];
-        $use_bootstrap = Config::inst()->get(SystemMessages::class, 'use_bootstrap');
-
-        if (empty($use_bootstrap) || $use_bootstrap === false) {
-            $vars["UseBootstrap"] = 'false';
-        } else {
-            $vars["UseBootstrap"] = 'true';
-        }
-
-        Requirements::javascriptTemplate(
-            'i-lateral/silverstripe-systemmessages:client/dist/js/SMModal.js',
-            $vars
-        );
+        Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/styles/systemmessages.css");
+        Requirements::javascript('i-lateral/silverstripe-systemmessages:client/dist/js/systemmessages.js');
     }
 
     public function SystemMessages()
@@ -59,14 +37,17 @@ class SystemMessageControllerExtension extends Extension
      */
     public function closesystemmessage()
     {
-        $id = $this->owner->request->param("ID");
+        /** @var Controller */
+        $owner = $this->getOwner();
+        $request = $owner->getRequest();
+        $id = $request->param("ID");
+        $back_url = $request->getVar(SystemMessages::BACK_URL);
         $message = SystemMessage::get()->byID($id);
-        $member = Member::currentUser();
-        $action = $this->owner->request->getVars();
+        $member = Security::getCurrentUser();
 
         // If not a message then generate an error
         if (!$message) {
-            return $this->owner->httpError(500);
+            return $owner->httpError(500);
         }
 
         if ($member) {
@@ -75,10 +56,10 @@ class SystemMessageControllerExtension extends Extension
             $message->close();
         }
 
-        if ($action) {
-            return $this->owner->redirect(Director::get_current_page()->Link());
+        if (!empty($back_url)) {
+            return $owner->redirect($back_url);
         } else {
-            return $this->owner->redirectBack();
+            return $owner->redirectBack();
         }
     }
 }
