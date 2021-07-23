@@ -1,0 +1,39 @@
+{
+  "name": "ilateral-silverstripe-systemmessages",
+  "version": "3.0.0",
+  "description": "Add system notifications to a site built in the SilverStripe CMS",
+  "engines": {
+    "node": ">=6.x"
+  },
+  "scripts": {
+    "build": "yarn && yarn lint && NODE_ENV=production webpack -p --bail --progress",
+    "dev": "NODE_ENV=development webpack --progress",
+    "watch": "NODE_ENV=development webpack --watch --progress",
+    "css": "WEBPACK_CHILD=css npm run build",
+    "tx": "tx push --source && tx pull --all && node transifex.js"
+  },
+  "author": "Morven Lewis-Everley",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/i-lateral/silverstripe-systemmessages/issues"
+  },
+  "homepage": "https://github.com/i-lateral/silverstripe-systemmessages/issues",
+  "dependencies": {
+    "babel-polyfill": "6.7.4",
+    "exports-loader": "^3.0.0",
+    "imports-loader": "^3.0.0"
+  },
+  "devDependencies": {
+    "@silverstripe/eslint-config": "^0.0.2",
+    "@silverstripe/webpack-config": "^0.7",
+    "expose-loader": "^0.7.4",
+    "mini-css-extract-plugin": "^0.7.0",
+    "sass-loader": "^6.0.7",
+    "tingle.js": "^0.16.0"
+  },
+  "babel": {
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  }
+}
