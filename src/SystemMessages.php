@@ -7,6 +7,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\View\ViewableData;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
 use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\Security\Security;
 
 /**
  * Simple object to hold generic settings and functions
@@ -17,13 +19,7 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  */
 class SystemMessages extends ViewableData
 {
-    /**
-     * Set whether to use Bootstrap specific libs (currently only modal JS)
-     *
-     * @var boolean
-     * @config
-     */
-    private static $use_bootstrap = false;
+    const BACK_URL = "BackURL";
 
     /**
      * Get the most recent, open system message for the current
@@ -50,12 +46,34 @@ class SystemMessages extends ViewableData
             )
         );
     }
+    /**
+     * Get all open messages and render
+     *
+     * @return string HTML of the message
+     */
+    public function RenderedMessages()
+    {
+        $return = [];
+
+        foreach ($this->OpenMessages() as $message) {
+            $return[] = $this->renderWith(
+                SystemMessage::class,
+                [ "Message" => $message ]
+            );
+        }
+
+        $html = DBHTMLText::create('RenderedMessages');
+        $html->setValue(implode('', $return));
+        
+        return $html;
+    }
+
 
     public function OpenMessages()
     {
         $now = DBDatetime::now()->Value;
         $return = ArrayList::create();
-        $member = Member::currentUser();
+        $member = Security::getCurrentUser();
         $filter = array(
             "StartDate:LessThan" => $now,
             "ExpiryDate:GreaterThan" => $now
@@ -73,6 +91,6 @@ class SystemMessages extends ViewableData
             }
         }
 
-        return $return;
+        return $return->removeDuplicates();
     }
 }
