@@ -1,6 +1,9 @@
 ---
 Name: systemmessageconfig
 ---
+SilverStripe\Control\RequestHandler:
+  extensions:
+    - ilateral\SilverStripe\SystemMessages\MessageInjector
 SilverStripe\Control\Controller:
   extensions:
     - ilateral\SilverStripe\SystemMessages\SystemMessageControllerExtension
