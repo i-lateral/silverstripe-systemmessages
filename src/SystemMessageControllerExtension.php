@@ -3,13 +3,12 @@
 namespace ilateral\SilverStripe\SystemMessages;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\Security\Member;
-use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
 use ilateral\SilverStripe\SystemMessages\SystemMessages;
+use SilverStripe\Core\Config\Config;
 
 class SystemMessageControllerExtension extends Extension
 {
@@ -19,8 +18,13 @@ class SystemMessageControllerExtension extends Extension
 
     public function onAfterInit()
     {
-        Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/styles/systemmessages.css");
-        Requirements::javascript('i-lateral/silverstripe-systemmessages:client/dist/js/systemmessages.js');
+        if (Config::inst()->get(SystemMessages::class, 'inject_css')) {
+            Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/styles/systemmessages.css");
+        }
+
+        if (Config::inst()->get(SystemMessages::class, 'inject_js')) {
+            Requirements::javascript('i-lateral/silverstripe-systemmessages:client/dist/js/systemmessages.js');
+        }
     }
 
     public function SystemMessages()
