@@ -142,6 +142,11 @@ class SystemMessage extends DataObject
         }
     }
 
+    public function forTemplate()
+    {
+        return $this->renderWith($this->getViewerTemplates());
+    }
+
     /**
      * Pass the global Bootstrap config (for use in our templates).
      *
