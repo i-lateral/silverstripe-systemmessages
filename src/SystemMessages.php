@@ -3,12 +3,18 @@
 namespace ilateral\SilverStripe\SystemMessages;
 
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\Security\Member;
-use SilverStripe\View\ViewableData;
-use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use SilverStripe\Dev\Deprecation;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Security\Security;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Dev\DevelopmentAdmin;
+use SilverStripe\Dev\DevBuildController;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBHTMLText;
-use SilverStripe\Security\Security;
+use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use SilverStripe\CMS\Controllers\RootURLController;
 
 /**
  * Simple object to hold generic settings and functions
@@ -17,9 +23,26 @@ use SilverStripe\Security\Security;
  * @package SystemMessages
  * @author Mo <morven@ilateral.co.uk>
  */
-class SystemMessages extends ViewableData
+class SystemMessages
 {
+    use Configurable, Injectable;
+
     const BACK_URL = "BackURL";
+
+    private static $inject_css = true;
+
+    private static $inject_js = true;
+
+    private static $controller_blacklist = [
+        DevBuildController::class,
+        DevelopmentAdmin::class,
+        LeftAndMain::class
+    ];
+
+    public function getBlacklistedControllers(): array
+    {
+        return Config::inst()->get(static::class, 'controller_blacklist');
+    }
 
     /**
      * Get the most recent, open system message for the current
@@ -27,49 +50,40 @@ class SystemMessages extends ViewableData
      *
      * @return SystemMessage
      */
-    public function Message()
+    public function getMessage()
     {
-        return $this->OpenMessages()->first();
+        return $this
+            ->getOpenMessages()
+            ->first();
     }
 
-    /**
-     * Get the most recent message and render into a template
-     *
-     * @return string HTML of the message
-     */
-    public function RenderedMessage()
+    public function getRenderedMessage(): string
     {
-        return $this->renderWith(
-            SystemMessage::class,
-            array(
-                "Message" => $this->Message()
-            )
-        );
+        $message = $this->getMessage();
+
+        if (empty($message)) {
+            return "";
+        }
+
+        return $message->forTemplate()->RAW();
     }
-    /**
-     * Get all open messages and render
-     *
-     * @return string HTML of the message
-     */
-    public function RenderedMessages()
+
+    public function getRenderedMessages()
     {
         $return = [];
 
-        foreach ($this->OpenMessages() as $message) {
-            $return[] = $this->renderWith(
-                SystemMessage::class,
-                [ "Message" => $message ]
-            );
+        foreach ($this->getOpenMessages() as $message) {
+            /** @var SystemMessage $message */
+            $return[] = $message->forTemplate()->RAW();
         }
 
         $html = DBHTMLText::create('RenderedMessages');
         $html->setValue(implode('', $return));
-        
+
         return $html;
     }
 
-
-    public function OpenMessages()
+    public function getOpenMessages(): ArrayList
     {
         $now = DBDatetime::now()->Value;
         $return = ArrayList::create();
@@ -92,5 +106,42 @@ class SystemMessages extends ViewableData
         }
 
         return $return->removeDuplicates();
+    }
+
+
+    public function Message()
+    {
+        Deprecation::notice(
+            3.3,
+            "Message Depreciated, use getMessage instead"
+        );
+        return $this->getMessage();
+    }
+
+    public function RenderedMessage()
+    {
+        Deprecation::notice(
+            3.3,
+            "RenderedMessage Depreciated, use getRenderedMessage or auto injection"
+        );
+        return $this->getRenderedMessage();
+    }
+
+    public function RenderedMessages()
+    {
+        Deprecation::notice(
+            3.3,
+            "RenderedMessages Depreciated, use getRenderedMessages or auto injection"
+        );
+        return $this->getRenderedMessages();
+    }
+
+    public function OpenMessages()
+    {
+        Deprecation::notice(
+            3.3,
+            "OpenMessages Depreciated, use getOpenMessages"
+        );
+        return $this->getOpenMessages();
     }
 }
