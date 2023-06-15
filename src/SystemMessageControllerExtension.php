@@ -19,11 +19,11 @@ class SystemMessageControllerExtension extends Extension
     public function onAfterInit()
     {
         if (Config::inst()->get(SystemMessages::class, 'inject_css')) {
-            Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/styles/systemmessages.css");
+            Requirements::css("i-lateral/silverstripe-systemmessages:client/dist/styles/bundlecss.css");
         }
 
         if (Config::inst()->get(SystemMessages::class, 'inject_js')) {
-            Requirements::javascript('i-lateral/silverstripe-systemmessages:client/dist/js/systemmessages.js');
+            Requirements::javascript('i-lateral/silverstripe-systemmessages:client/dist/js/bundlejs.js');
         }
     }
 

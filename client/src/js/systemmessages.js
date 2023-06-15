@@ -30,7 +30,7 @@ function sytemmessagemodal(object, close_url) {
     }
 
     modal.addFooterBtn(
-        'Close',
+        object.dataset.closetext,
         'tingle-btn tingle-btn--danger tingle-btn--pull-right',
         function() { modal.close(); }
     );

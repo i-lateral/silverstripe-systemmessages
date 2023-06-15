@@ -12,7 +12,7 @@
             </div>
         </div>
     <% else %>
-        <div class="system-message system-message-modal" tabindex"-1" data-delay="{$Delay}" data-closeurl="{$CloseLink}">
+        <div class="system-message system-message-modal" tabindex"-1" data-delay="{$Delay}" data-closetext="{$ButtonText}" data-closeurl="{$CloseLink}">
             <div class="system-message-modal-content">$Content</div>
 
             <% if $Link.LinkURL %><div class="system-message-modal-footer">
