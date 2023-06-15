@@ -28,3 +28,10 @@ This file logs major changes for the SilverStripe System Mesages module.
 * Switch to using TingleJS for modal support
 * Remove jQuery and Bootstrap integrations
 * Switch to webpack for JS/CSS bundling
+
+## 3.1.0
+
+* Update to latest version of webpack
+* Add support for changing button text on modal
+* Admin tweaks
+* Auto inject message html into templates
