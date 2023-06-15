@@ -22,7 +22,7 @@ class MessageInjector extends Extension
         $controller = $params['Controller'];
 
         foreach ($blacklist as $class) {
-            if (is_a($controller, $class)) {
+            if (is_a($controller, $class, true)) {
                 return $response;
             }
         }
