@@ -21,8 +21,10 @@ class MessageInjector extends Extension
         $blacklist = $helper->getBlacklistedControllers();
         $controller = $params['Controller'];
 
-        if (in_array($controller, $blacklist)) {
-            return $response;
+        foreach ($blacklist as $class) {
+            if (is_a($controller, $class)) {
+                return $response;
+            }
         }
 
         $message_html = $helper->getRenderedMessages();

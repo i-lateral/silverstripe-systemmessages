@@ -14,6 +14,7 @@ use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use ilateral\SilverStripe\SystemMessages\SystemMessage;
+use SilverStripe\Admin\AdminRootController;
 use SilverStripe\CMS\Controllers\RootURLController;
 
 /**
@@ -34,6 +35,7 @@ class SystemMessages
     private static $inject_js = true;
 
     private static $controller_blacklist = [
+        AdminRootController::class,
         DevBuildController::class,
         DevelopmentAdmin::class,
         LeftAndMain::class
