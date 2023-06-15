@@ -24,7 +24,13 @@ class SystemMessage extends DataObject
 {
     private static $table_name = 'SystemMessage';
 
-    private static $db = array(
+    private static $singilar_name = 'System Message';
+
+    private static $plural_name = 'System Messages';
+
+    private static $description = "A simple system message";
+
+    private static $db = [
         "Content"       => "HTMLText",
         "ButtonText"    => "Varchar",
         "StartDate"     => "Datetime",
@@ -32,30 +38,30 @@ class SystemMessage extends DataObject
         "Delay" => 'Int',
         "Type" => "Enum('Banner,Modal','Banner')",
         "MessageType" => "Enum('plain,success,info,warning,danger','success')"
-    );
+    ];
 
-    private static $has_one = array(
+    private static $has_one = [
         'Link'      => Link::class
-    );
+    ];
 
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         "ClosedBy" => Member::class
-    );
+    ];
 
-    private static $field_labels = array(
+    private static $field_labels = [
         'Link' => 'Link to page or file'
-    );
+    ];
 
-    private static $summary_fields = array(
+    private static $summary_fields = [
         "Content.Summary" => "Content",
         "StartDate"       => "Starts",
         "ExpiryDate"      => "Expires",
         "MessageType" => "Message Type"
-    );
+    ];
 
-    private static $defaults = array(
+    private static $defaults = [
         "ButtonText" => "Close"
-    );
+    ];
 
     /**
      * Link to close this message
