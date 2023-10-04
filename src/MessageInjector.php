@@ -27,7 +27,7 @@ class MessageInjector extends Extension
             }
         }
 
-        $message_html = $helper->getRenderedMessages();
+        $message_html = $helper->forTemplate();
         $html = $response->getValue();
         $html = preg_replace(
             '#(<body(>+|[\s]+(.*)?>))#i',

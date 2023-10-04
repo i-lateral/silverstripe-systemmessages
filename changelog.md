@@ -35,3 +35,7 @@ This file logs major changes for the SilverStripe System Mesages module.
 * Add support for changing button text on modal
 * Admin tweaks
 * Auto inject message html into templates
+
+## 3.1.1
+
+* Add `SystemMessages.forTemplate` support

@@ -85,6 +85,11 @@ class SystemMessages
         return $html;
     }
 
+    public function forTemplate()
+    {
+        return $this->getRenderedMessages();
+    }
+
     public function getOpenMessages(): ArrayList
     {
         $now = DBDatetime::now()->Value;
