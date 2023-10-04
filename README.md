@@ -33,10 +33,10 @@ Or:
 
 ## Usage
 
-Once installed, you must add the template variable:
+Once installed, messages will be added automatically to your templates. Alternatively, you can add the following template variable:
 
-    $SystemMessages.RenderedMessage
-    
+    $SystemMessages
+
 to any templates you require messages to appear on.
 
 You can manage messages in the admin area using the
